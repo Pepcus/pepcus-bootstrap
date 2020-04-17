@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Think HR Consent Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/v1/static/style.css}"/>
+</head>
+<body>
+<div  class="container">
+        <div class="wrapper">
+          <div class="image-container">
+            <div class="image"></div>
+          </div>
+          <hr></hr>
+          <div class="form-wrapper">
+            <h2 class="auth-heading">OAuth Approval</h2>
+				<form id='confirmationForm' name='confirmationForm' th:action="@{/v1/oauth/authorize}" method='post'>
+				<p>Do you authorize '<span th:text="${#httpServletRequest.getAttribute('brokerName')}"></span>' to access your protected resources?</p>
+					<input name='user_oauth_approval' value='true' type='hidden'/>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<label>
+						<input class="submit-btn auth-submit" name='authorize' value='Authorize' type='submit'/>
+					</label>
+				</form>
+				
+				<form id='denialForm' name='denialForm' th:action="@{/v1/oauth/authorize}" method='post'>
+					<input name='user_oauth_approval' value='false' type='hidden'/>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<label>
+						<input class="submit-btn" name='deny' value='Deny' type='submit'/>
+					</label>
+				</form>
+          </div>
+</div>
+</div>
+</body>
+</html>
