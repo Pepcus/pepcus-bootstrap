@@ -34,17 +34,19 @@ public class ApplicationConstants {
     public static final String LIMIT_PARAM = "limit";
     public static final String OFFSET_PARAM = "offset";
     public static final String SORT_PARAM = "sort";
+    
+    
+    // Date Format 
     public static final String VALID_FORMAT_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     public static final String VALID_ISO_8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
     public static final String VALID_ISO_8601_DATE_FORMAT_1 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     public static final String VALID_ISO_8601_DATE_DISPLAY_FORMAT = "yyyy-MM-dd'T'HH:mm:ss+|-hh:mm";
     public static final String MONTH_DATE_YEAR_FORMAT_HANDBOOK = "MMMM dd, yyyy";
-    public static final String VALID_FILE_EXTENSION_IMPORT = "csv";
-    public static final String[] REQUIRED_HEADERS_COMPANY_CSV_IMPORT = { "CLIENT_NAME", "DISPLAY_NAME", "PHONE", "ADDRESS", "ADDRESS2",
-            "CITY", "STATE", "ZIP", "INDUSTRY", "COMPANY_SIZE", "PRODUCER", "CONFIGURATION_NAME" };
     
-    public static final String[] REQUIRED_HEADERS_USER_CSV_IMPORT = { "FIRST_NAME", "LAST_NAME", "USER_NAME", "EMAIL", "CLIENT_NAME",
-            "PHONE", "ROLE", "DEPARTMENT", "JOB_TITLE", "HR_LENS", "THINKHR_CRUNCH" };
+    
+    
+    public static final String VALID_FILE_EXTENSION_IMPORT = "csv";
+    
     
     public static final String COMPANY = "COMPANY";
     public static final String USER = "USER";
