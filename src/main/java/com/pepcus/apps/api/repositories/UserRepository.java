@@ -7,19 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pepcus.apps.api.db.entities.User;
+import com.pepcus.apps.api.db.entities.Contact;
 
 /**
  * User repository for user entity.
  *  
  */
-public interface UserRepository extends BaseRepository<User, Integer> {
+public interface UserRepository extends BaseRepository<Contact, Integer> {
     
     public final String isThroneAndActiveUser = "company.isThroneCompany=1 and isActive=1";
     public final String isThroneUser = "company.isThroneCompany=1";
     
     @Query("from User where userId=:id and " + isThroneAndActiveUser )
-    public User findActiveOne(@Param("id")Integer id);
+    public Contact findActiveOne(@Param("id")Integer id);
     
     /**
      * 
@@ -42,7 +42,7 @@ public interface UserRepository extends BaseRepository<User, Integer> {
      * @return
      */
     @Query("from User where userName=:userName and " + isThroneAndActiveUser)
-    public User findByUserName(@Param("userName")String userName);
+    public Contact findByUserName(@Param("userName")String userName);
     
     /**
      * It will get User by userName lookup in all companies not only throne company
@@ -50,7 +50,7 @@ public interface UserRepository extends BaseRepository<User, Integer> {
      * @param userName
      * @return
      */
-    public User findFirstByUserNameAndIsActive(String userName, Integer isActive);
+    public Contact findFirstByUserNameAndIsActive(String userName, Integer isActive);
     
     /**
      * 
@@ -58,7 +58,7 @@ public interface UserRepository extends BaseRepository<User, Integer> {
      * @return
      */
     @Query("from User user where user.company.companyId=:companyId and " + isThroneAndActiveUser)
-    public List<User> findByCompanyId(@Param("companyId") Integer companyId);
+    public List<Contact> findByCompanyId(@Param("companyId") Integer companyId);
 
     /**
      * 
@@ -91,10 +91,10 @@ public interface UserRepository extends BaseRepository<User, Integer> {
     @Transactional
     public void deleteByCompany_companyIdIn(List<Integer> companyIdList);
     
-    public List<User> findByCompany_companyIdIn(List<Integer> companyIdList);
+    public List<Contact> findByCompany_companyIdIn(List<Integer> companyIdList);
     
     @Query("from User where userId=:id and company.isThroneCompany=1 and isActive=:isActive")
-    public User findOneWithStatus(@Param("id")Integer id, @Param("isActive")Integer isActive);
+    public Contact findOneWithStatus(@Param("id")Integer id, @Param("isActive")Integer isActive);
 
     /**
      * Find a duplicate or a potential duplicate i.e. active or inactive name in DB for a user name that is being created or updated
@@ -102,7 +102,7 @@ public interface UserRepository extends BaseRepository<User, Integer> {
      * @param username
      * @return
      */
-    public List<User> findByUserNameStartingWith(String username);
+    public List<Contact> findByUserNameStartingWith(String username);
 
     /**
      * Get active user by email
@@ -111,7 +111,7 @@ public interface UserRepository extends BaseRepository<User, Integer> {
      * @param isActive
      * @return
      */
-    public User findFirstByEmailAndIsActive(String email, int isActive);
+    public Contact findFirstByEmailAndIsActive(String email, int isActive);
     
     /**
      * Returns user with specified user Ids
@@ -119,7 +119,7 @@ public interface UserRepository extends BaseRepository<User, Integer> {
      * @param userIds
      * @return
      */
-    public List<User> findByUserIdIn(List<Integer> userIds);
+    public List<Contact> findByUserIdIn(List<Integer> userIds);
     
     /**
      * 

@@ -1,5 +1,6 @@
 package com.pepcus.apps.api.db.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Formula;
@@ -30,7 +33,7 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "app_throne_oauth_client_details")
+@Table(name = "oauth_client_details")
 @Data
 @JsonInclude(Include.NON_EMPTY)
 public class OAuthClientDetails implements SearchableEntity{
@@ -41,16 +44,13 @@ public class OAuthClientDetails implements SearchableEntity{
     
     @JsonProperty(access = Access.READ_ONLY)
     @Column(name = "client_id")
-    private Integer brokerId;
+    private Integer client;
     
-    @JsonProperty(access = Access.READ_ONLY)
-    @Formula("(select c.Client_Name from clients c where c.clientID = client_id)")
-    private String brokerName;
     
-    @Column(name = "consumer_key")
+    @Column(name = "client_id")
     private String clientId;
     
-    @Column(name = "consumer_secret")
+    @Column(name = "client_secret")
     private String clientSecret;
     
     @URL
@@ -60,20 +60,21 @@ public class OAuthClientDetails implements SearchableEntity{
     @Column(name = "is_active")
     @Pattern(regexp = "0|1", message="must be either 0 or 1")
     private String isActive;
-    
-    @Column(name = "issuer")
-    private String issuer;
-    
-    @URL
-    @Column(name= "jwk_url")
-    private String jwkUrl;
-    
-    @URL
-    @Column(name= "userinfo_url")
-    private String userInfoUrl;
-    
-    @Column(name= "mapped_field")
-    private String mappedField;
+   
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_on")
+    private Date createdOn;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "modified_on")
+    private Date modifiedOn;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "modified_by")
+    private String modifiedBy;
+   
 
     @Override
     @JsonIgnore

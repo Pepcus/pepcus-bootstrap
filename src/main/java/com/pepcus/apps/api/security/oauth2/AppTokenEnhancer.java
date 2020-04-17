@@ -16,7 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.pepcus.apps.api.db.entities.OAuthClientDetails;
 import com.pepcus.apps.api.db.entities.ThroneRole;
-import com.pepcus.apps.api.db.entities.User;
+import com.pepcus.apps.api.db.entities.Contact;
 import com.pepcus.apps.api.exception.APIErrorCodes;
 import com.pepcus.apps.api.exception.ApplicationException;
 import com.pepcus.apps.api.model.AppAuthData;
@@ -77,7 +77,7 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
         }
         // Validate user
         if (StringUtils.isNotBlank(appAuthData.getUser())) {
-            User user = userRepository.findByUserName(appAuthData.getUser());
+            Contact user = userRepository.findByUserName(appAuthData.getUser());
             if (null == user){
                 throw ApplicationException.createAuthorizationError(APIErrorCodes.AUTHORIZATION_FAILED, "user = "+ appAuthData.getUser());
             }
@@ -100,16 +100,17 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
      */
     private void setAdditionalInfo(OAuth2Authentication authentication) {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        User appUser = userRepository.findByUserName(userDetails.getUsername());
+        Contact appUser = userRepository.findByUserName(userDetails.getUsername());
 
         ThroneRole role = roleRepository.findOne(appUser.getRoleId());
         
         String clientId = authentication.getOAuth2Request().getClientId(); 
         OAuthClientDetails authClientDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
         
-        if (!authClientDetails.getBrokerId().equals(tenantId)) {
+        // Commented by sandeep : need to fix
+        /*if (!authClientDetails.getBrokerId().equals(tenantId)) {
         	throw new InvalidClientException("Bad Credentials");
-        }
+        }*/
         
         //In case any additional informations are required
        /* additionalInfo = new HashMap<String, Object>();

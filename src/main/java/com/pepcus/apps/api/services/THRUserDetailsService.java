@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.pepcus.apps.api.db.entities.User;
+import com.pepcus.apps.api.db.entities.Contact;
 import com.pepcus.apps.api.repositories.UserRepository;
 
 @Service
@@ -19,7 +19,7 @@ public class THRUserDetailsService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username);
+        Contact user = userRepository.findByUserName(username);
         if(user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }

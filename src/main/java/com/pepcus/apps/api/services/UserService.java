@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pepcus.apps.api.db.entities.ThroneRole;
-import com.pepcus.apps.api.db.entities.User;
+import com.pepcus.apps.api.db.entities.Contact;
 import com.pepcus.apps.api.exception.APIErrorCodes;
 import com.pepcus.apps.api.exception.ApplicationException;
 import com.pepcus.apps.api.services.crypto.AppEncryptorDecryptor;
@@ -75,7 +75,7 @@ public class UserService extends CommonService {
      * @param String searchSpec Search string for filtering results
      * @return List<User> object 
      */
-    public List<User> getAllUser(Integer offset, Integer limit, String sortField, 
+    public List<Contact> getAllUser(Integer offset, Integer limit, String sortField, 
             String searchSpec, String fields, 
             Map<String, String> requestParameters) throws ApplicationException  {
 
@@ -88,10 +88,10 @@ public class UserService extends CommonService {
             }
         }
         
-        Class kclass = User.class;
+        Class kclass = Contact.class;
         Map<String, List<String>> classVsFieldMap = validateFieldsAndGetClassVsFieldMap(fields, kclass);
         
-        Specification<User> spec = getEntitySearchSpecification(searchSpec, requestParameters, kclass, new User());
+        Specification<Contact> spec = getEntitySearchSpecification(searchSpec, requestParameters, kclass, new Contact());
 
         return findAll(false, pageable, spec, kclass, userRepository, USER_ID_PARAM, classVsFieldMap);
     }
@@ -101,11 +101,11 @@ public class UserService extends CommonService {
      * @param userId
      * @return User object 
      */
-    public User getUser(Integer userId, String fields) {
-        Class kclass = User.class;
+    public Contact getUser(Integer userId, String fields) {
+        Class kclass = Contact.class;
         Map<String, List<String>> classVsFieldMap = validateFieldsAndGetClassVsFieldMap(fields, kclass);
         
-        User user = findOne(userId, kclass, userRepository, classVsFieldMap);
+        Contact user = findOne(userId, kclass, userRepository, classVsFieldMap);
         
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId = "+ userId);
@@ -119,8 +119,8 @@ public class UserService extends CommonService {
      * @param userId
      * @return User object 
      */
-    public User getUser(Integer userId) {
-        User user = userRepository.findOne(userId);
+    public Contact getUser(Integer userId) {
+        Contact user = userRepository.findOne(userId);
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId = "+ userId);
         }
@@ -132,8 +132,8 @@ public class UserService extends CommonService {
      * @param userId
      * @return User object 
      */
-    public User getActiveUser(Integer userId) {
-        User user = userRepository.findActiveOne(userId);
+    public Contact getActiveUser(Integer userId) {
+        Contact user = userRepository.findActiveOne(userId);
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId = "+ userId);
         }
@@ -144,17 +144,17 @@ public class UserService extends CommonService {
      * Add a user in system
      * Also adds learnUser
      * 
-     * @param User object
+     * @param Contact object
      */
 
     @Transactional
-    public User addUser(User user, Integer brokerId, Boolean suppressEmail) {
+    public Contact addUser(Contact user, Integer brokerId, Boolean suppressEmail) {
         //Saving default password
         user.setPasswordApps(encryptedDefaultPassword);
 
         Boolean defaultSuppressEmail = false;
 
-        User throneUser = addUser(user, brokerId, defaultSuppressEmail);
+        Contact throneUser = addUser(user, brokerId, defaultSuppressEmail);
 
         return throneUser;
     }
@@ -162,14 +162,14 @@ public class UserService extends CommonService {
     /**
      * Update a user in database
      * 
-     * @param User object
+     * @param Contact object
      * @throws ApplicationException
      * @throws IOException 
      */
     @Transactional
-    public User updateUser(Integer userId, String userJson, Integer brokerId) throws ApplicationException, IOException {
+    public Contact updateUser(Integer userId, String userJson, Integer brokerId) throws ApplicationException, IOException {
 
-    	User userInDb = userRepository.findActiveOne(userId);
+    	Contact userInDb = userRepository.findActiveOne(userId);
 
     	if (null == userInDb) {
     		throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId="+userId);
@@ -178,7 +178,7 @@ public class UserService extends CommonService {
     	//Fetch Old User Name
     	String userNameInDb = userInDb.getUserName();
 
-    	User user = update(userJson, userInDb);
+    	Contact user = update(userJson, userInDb);
     	validateObject(user);
 
     	//Fetch new user name and assign old user name back in Persistence Context for Duplicate check
@@ -201,12 +201,12 @@ public class UserService extends CommonService {
      * @param username
      * @return
      */
-    public User getUser(String username) {
+    public Contact getUser(String username) {
         if (username == null) {
             return null;
         }
 
-        List<User> usersInDb = null;
+        List<Contact> usersInDb = null;
         
         try {
             usersInDb = userRepository.findByUserNameStartingWith(username);
@@ -215,7 +215,7 @@ public class UserService extends CommonService {
         }
 
         if (null != usersInDb && !usersInDb.isEmpty()) {
-            for (User user : usersInDb) {
+            for (Contact user : usersInDb) {
                 if (null != user) {
                     return user;
                 }
@@ -239,7 +239,7 @@ public class UserService extends CommonService {
      */
     protected String generateUserName(String userName, String email, String firstName, String lastName) {
         if (!StringUtils.isBlank(userName)) {
-            User user = getUser(userName);
+            Contact user = getUser(userName);
             if (user == null) {
                 return userName;
             } else if (user.getUserName().equalsIgnoreCase(userName)) {
@@ -287,8 +287,8 @@ public class UserService extends CommonService {
     }
     
 
-    public User getUserByEmail(String email) {
-        User user = userRepository.findFirstByEmailAndIsActive(email, 1);
+    public Contact getUserByEmail(String email) {
+        Contact user = userRepository.findFirstByEmailAndIsActive(email, 1);
         
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "email", "email = "+ email);

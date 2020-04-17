@@ -67,14 +67,6 @@ public class AppClientDetailsService implements ClientDetailsService {
         if (authDetails.getRedirectUrl() != null) {
             clientDetails.setRegisteredRedirectUri(new HashSet<String>(Arrays.asList(authDetails.getRedirectUrl())));
         }
-        Map<String, String> additionalInformation = new HashMap<String, String>();
-        additionalInformation.put(BROKER_ID_PARAM, authDetails.getBrokerId().toString());
-        additionalInformation.put(ISSUER, authDetails.getIssuer());
-        additionalInformation.put(JWK_URL, authDetails.getJwkUrl());
-        additionalInformation.put(USERINFO_URL, authDetails.getUserInfoUrl());
-        additionalInformation.put(MAPPED_FIELD, authDetails.getMappedField());
-        clientDetails.setAdditionalInformation(additionalInformation);
-        
         return clientDetails;
     }
 
