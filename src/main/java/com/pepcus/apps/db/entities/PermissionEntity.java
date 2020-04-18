@@ -1,0 +1,31 @@
+package com.pepcus.apps.db.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import lombok.Data;
+
+@Entity
+@Table(name = "permission")
+@Data
+@JsonInclude(Include.NON_EMPTY)
+public class PermissionEntity extends BaseEntity {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @Column(name = "key")
+    private String key;
+    
+    @Column(name = "description")
+    private String description;
+
+}

@@ -20,7 +20,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="com.pepcus.apps.api" level="debug" additivity="false">
+        <Logger name="com.pepcus.apps" level="debug" additivity="false">
             <AppenderRef ref="App-File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
          </Logger>
