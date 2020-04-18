@@ -1,5 +1,7 @@
 package com.pepcus.apps.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ServiceLocatorFactoryBean;
 import org.springframework.boot.SpringApplication;
@@ -26,15 +28,21 @@ import com.pepcus.apps.api.services.crypto.BlowfishEncryptorDecryptor;
 @SpringBootApplication
 public class ApiApplication {
 
+  private static Logger logger = LoggerFactory.getLogger(ApiApplication.class);
+
+  // Encryption algorithm name
   @Value("${com.pepcus.apps.api.crypto.algo}")
   private String cryptoAlgo;
 
+  // Encryption key
   @Value("${com.pepcus.apps.api.crypto.encrypt.key}")
   private String key;
 
+  // For AES algorithm as it must be 16 bytes long
   @Value("${com.pepcus.apps.api.crypto.initVector}")
   private String initVector;
 
+  // JWT token Key
   @Value("${JWT.jwt_key}")
   private String jwtSigningKey;
 
@@ -47,14 +55,24 @@ public class ApiApplication {
    */
   public static void main(String[] args) {
     SpringApplication.run(ApiApplication.class, args);
-    System.out.println("##### PEPCUS - BOOTSTRAP #####");
+    logger.info("##### PEPCUS - BOOTSTRAP #####");
   }
 
+  /**
+   * To read authentication from token store
+   * 
+   * @return
+   */
   @Bean
   public TokenStore tokenStore() {
     return new JwtTokenStore(accessTokenConverter());
   }
 
+  /**
+   * To set token information
+   * 
+   * @return
+   */
   @Bean
   public AppTokenEnhancer accessTokenConverter() {
     AppTokenEnhancer converter = new AppTokenEnhancer();
@@ -62,6 +80,11 @@ public class ApiApplication {
     return converter;
   }
 
+  /**
+   * To get sevice based on service name
+   * 
+   * @return
+   */
   @Bean
   public ServiceLocatorFactoryBean accessEvaluatorFactory() {
     ServiceLocatorFactoryBean bean = new ServiceLocatorFactoryBean();

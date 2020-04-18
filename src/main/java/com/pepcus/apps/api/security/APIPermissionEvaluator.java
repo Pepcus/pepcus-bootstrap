@@ -1,9 +1,9 @@
 package com.pepcus.apps.api.security;
 
 import java.io.Serializable;
-
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class APIPermissionEvaluator implements PermissionEvaluator {
     
-    //@Autowired
+    @Autowired @Lazy
     ResourceAccessEvaluatorFactory accessEvaluatorFactory;
 
     
