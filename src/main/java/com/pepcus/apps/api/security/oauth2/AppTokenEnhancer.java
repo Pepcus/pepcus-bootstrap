@@ -2,21 +2,19 @@ package com.pepcus.apps.api.security.oauth2;
 
 import java.util.Collections;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.util.CollectionUtils;
-
+import com.pepcus.apps.api.db.entities.Contact;
 import com.pepcus.apps.api.db.entities.OAuthClientDetails;
 import com.pepcus.apps.api.db.entities.ThroneRole;
-import com.pepcus.apps.api.db.entities.Contact;
+import com.pepcus.apps.api.db.entities.User;
 import com.pepcus.apps.api.exception.APIErrorCodes;
 import com.pepcus.apps.api.exception.ApplicationException;
 import com.pepcus.apps.api.model.AppAuthData;
@@ -24,7 +22,6 @@ import com.pepcus.apps.api.repositories.OAuthClientDetailsRepository;
 import com.pepcus.apps.api.repositories.ThroneRoleRepository;
 import com.pepcus.apps.api.repositories.UserRepository;
 import com.pepcus.apps.api.utils.JWTUtils;
-
 import lombok.Data;
 
 @Data
@@ -77,11 +74,11 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
         }
         // Validate user
         if (StringUtils.isNotBlank(appAuthData.getUser())) {
-            Contact user = userRepository.findByUserName(appAuthData.getUser());
+            User user = userRepository.findByLogin_UserName(appAuthData.getUser());
             if (null == user){
                 throw ApplicationException.createAuthorizationError(APIErrorCodes.AUTHORIZATION_FAILED, "user = "+ appAuthData.getUser());
             }
-            appAuthData.setUserId(user.getUserId()); 
+            appAuthData.setUserId(user.getId()); 
         }
 
         ThroneRole throneRole = validatePermissions(appAuthData);
@@ -100,9 +97,8 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
      */
     private void setAdditionalInfo(OAuth2Authentication authentication) {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        Contact appUser = userRepository.findByUserName(userDetails.getUsername());
-
-        ThroneRole role = roleRepository.findOne(appUser.getRoleId());
+        
+        User user = userRepository.findByLogin_UserName(userDetails.getUsername());
         
         String clientId = authentication.getOAuth2Request().getClientId(); 
         OAuthClientDetails authClientDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");

@@ -78,11 +78,11 @@ public class CommonService {
     @PersistenceContext
     protected EntityManager entityManager;
     
-    @Value("${com.pepcus.apps.api.company.records.limit}")
-    protected int maxRecordsCompanyImport;
+   // @Value("${com.pepcus.apps.api.company.records.limit}")
+    protected int maxRecordsCompanyImport = 0;
     
-    @Value("${com.pepcus.apps.api.user.records.limit}")
-    protected int maxRecordsUserImport;
+    //@Value("${com.pepcus.apps.api.user.records.limit}")
+    protected int maxRecordsUserImport = 0;
     
     Map<String, String> stateMap;
     

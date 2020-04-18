@@ -47,7 +47,7 @@ public class DatabaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
             @Qualifier("dataSource") DataSource dataSource) {
 
-        return builder.dataSource(dataSource).packages("com.pepcus.apps.api.db.entities").persistenceUnit("portal").build();
+        return builder.dataSource(dataSource).packages("com.pepcus.apps.api.db.entities").persistenceUnit("core").build();
     }
 
     @Primary

@@ -1,7 +1,6 @@
-DO $$
-BEGIN
+
   
-CREATE TABLE core.tenant
+ CREATE TABLE IF NOT EXISTS core.tenant
 (
    id serial  NOT NULL,
    key character varying(64),
@@ -15,7 +14,7 @@ CREATE TABLE core.tenant
    CONSTRAINT pk_tenant_id PRIMARY KEY (id)
 );
 
-CREATE TABLE core.login
+ CREATE TABLE IF NOT EXISTS core.login
 (
    id serial  NOT NULL,
    username character varying(64),
@@ -27,7 +26,7 @@ CREATE TABLE core.login
    CONSTRAINT pk_login_id PRIMARY KEY (id)
 );
 
-CREATE TABLE core.role
+ CREATE TABLE IF NOT EXISTS core.role
 (
    id serial  NOT NULL,
    key character varying(64),
@@ -37,11 +36,11 @@ CREATE TABLE core.role
    modified_on timestamp,
    created_by character varying(64),
    modified_by character varying(64),
-   CONSTRAINT pk_login_id PRIMARY KEY (id)
+   CONSTRAINT pk_role_id PRIMARY KEY (id)
 );
 
 
-DROP TABLE IF EXISTS core.user;
+ CREATE TABLE IF NOT EXISTS core.user
 (
    id serial  NOT NULL,
    first_name character varying(64),
@@ -56,7 +55,7 @@ DROP TABLE IF EXISTS core.user;
    modified_on timestamp,
    created_by character varying(64),
    modified_by character varying(64),
-   CONSTRAINT pk_tenant_id PRIMARY KEY (id),
+   CONSTRAINT pk_user_id PRIMARY KEY (id),
    CONSTRAINT fk_login_login_id FOREIGN KEY (login_id)
       REFERENCES core.login (id),
    CONSTRAINT fk_role_role_id FOREIGN KEY (role_id)
@@ -65,7 +64,7 @@ DROP TABLE IF EXISTS core.user;
       REFERENCES core.tenant (id) 
 );
 
-CREATE TABLE core.oauth_client_details
+ CREATE TABLE IF NOT EXISTS core.oauth_client_details
 (
    id serial  NOT NULL,
    client_id character varying(64),
@@ -76,10 +75,6 @@ CREATE TABLE core.oauth_client_details
    modified_on timestamp,
    created_by character varying(64),
    modified_by character varying(64),
-   CONSTRAINT pk_login_id PRIMARY KEY (id)
+   CONSTRAINT pk_oauth_client_details_id PRIMARY KEY (id)
 );
 
-
-
-END
-$$;

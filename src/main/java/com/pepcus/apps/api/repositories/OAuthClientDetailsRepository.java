@@ -37,7 +37,7 @@ public interface OAuthClientDetailsRepository extends PagingAndSortingRepository
      * @param brokerId
      * @return
      */
-    public OAuthClientDetails findByBrokerId(Integer brokerId);
+    //public OAuthClientDetails findByBrokerId(Integer brokerId);
     
     /**
      * Find Active Registered Brokers/Clients for given clientSecret

@@ -8,13 +8,10 @@ import static com.pepcus.apps.api.constant.ApplicationConstants.USER_ID_PARAM;
 import static com.pepcus.apps.api.utils.CommonUtil.getCurrentDateInUTC;
 import static com.pepcus.apps.api.utils.EntitySearchUtil.getEntitySearchSpecification;
 import static com.pepcus.apps.api.utils.EntitySearchUtil.getPageable;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +22,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.pepcus.apps.api.db.entities.ThroneRole;
 import com.pepcus.apps.api.db.entities.Contact;
+import com.pepcus.apps.api.db.entities.ThroneRole;
+import com.pepcus.apps.api.db.entities.User;
 import com.pepcus.apps.api.exception.APIErrorCodes;
 import com.pepcus.apps.api.exception.ApplicationException;
 import com.pepcus.apps.api.services.crypto.AppEncryptorDecryptor;
@@ -120,7 +117,8 @@ public class UserService extends CommonService {
      * @return User object 
      */
     public Contact getUser(Integer userId) {
-        Contact user = userRepository.findOne(userId);
+        //Contact user = userRepository.findOne(userId);
+        Contact user = null;
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId = "+ userId);
         }
@@ -133,7 +131,8 @@ public class UserService extends CommonService {
      * @return User object 
      */
     public Contact getActiveUser(Integer userId) {
-        Contact user = userRepository.findActiveOne(userId);
+        //Contact user = userRepository.findActiveOne(userId);
+      Contact user = null;
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId = "+ userId);
         }
@@ -169,7 +168,8 @@ public class UserService extends CommonService {
     @Transactional
     public Contact updateUser(Integer userId, String userJson, Integer brokerId) throws ApplicationException, IOException {
 
-    	Contact userInDb = userRepository.findActiveOne(userId);
+    	//Contact userInDb = userRepository.findActiveOne(userId);
+      Contact userInDb = null;
 
     	if (null == userInDb) {
     		throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId="+userId);
@@ -193,7 +193,8 @@ public class UserService extends CommonService {
     	user.setActivationDate(getCurrentDateInUTC());
 
     	// If not passed in model, then object will become in-active.
-    	return userRepository.save(user);
+    	//return userRepository.save(user);
+    	return new Contact();
     }
 
     /**
@@ -209,7 +210,7 @@ public class UserService extends CommonService {
         List<Contact> usersInDb = null;
         
         try {
-            usersInDb = userRepository.findByUserNameStartingWith(username);
+           // usersInDb = userRepository.findByUserNameStartingWith(username);
         } catch(JpaObjectRetrievalFailureException e) {
             throw ApplicationException.createBadRequest(APIErrorCodes.DUPLICATE_PORTAL_USER_RECORD, username);
         }
@@ -288,8 +289,8 @@ public class UserService extends CommonService {
     
 
     public Contact getUserByEmail(String email) {
-        Contact user = userRepository.findFirstByEmailAndIsActive(email, 1);
-        
+        //Contact user = userRepository.findFirstByEmailAndIsActive(email, 1);
+        Contact user = null;
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "email", "email = "+ email);
         }

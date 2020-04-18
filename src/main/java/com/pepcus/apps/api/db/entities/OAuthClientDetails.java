@@ -42,9 +42,9 @@ public class OAuthClientDetails implements SearchableEntity{
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     
-    @JsonProperty(access = Access.READ_ONLY)
+    /*@JsonProperty(access = Access.READ_ONLY)
     @Column(name = "client_id")
-    private Integer client;
+    private Integer client;*/
     
     
     @Column(name = "client_id")

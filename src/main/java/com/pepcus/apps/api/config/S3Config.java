@@ -27,11 +27,12 @@ public class S3Config {
 
   @Bean
   public AmazonS3 s3client() {
-    BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
-    AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.fromName(awsRegion))
-        .withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
-
-    return s3Client;
+   // BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
+   // AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.fromName(awsRegion))
+   //     .withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+   // return s3Client;
+    return null;
   }
 
+  
 }
