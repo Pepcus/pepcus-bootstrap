@@ -18,7 +18,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Autowired
-    JAPIPermissionEvaluator permissionEvaluator;
+    APIPermissionEvaluator permissionEvaluator;
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 
 @Entity
-@Table(name = "tenant")
+@Table(name = "role")
 @Data
 @JsonInclude(Include.NON_EMPTY)
 public class Role implements Serializable {

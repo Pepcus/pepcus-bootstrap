@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * 
  */
 @Service
-public class JAPIPermissionEvaluator implements PermissionEvaluator {
+public class APIPermissionEvaluator implements PermissionEvaluator {
     
     //@Autowired
     ResourceAccessEvaluatorFactory accessEvaluatorFactory;
