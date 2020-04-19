@@ -37,6 +37,7 @@ public class ApplicationConstants {
     
     
     // Date Format 
+    public static final String DATE_FORMAT_DD_MM_YYYY = "dd-MM-yyyy";
     public static final String VALID_FORMAT_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     public static final String VALID_ISO_8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
     public static final String VALID_ISO_8601_DATE_FORMAT_1 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
