@@ -1,23 +1,13 @@
 package com.pepcus.apps.services;
 
 import static com.pepcus.apps.constant.ApplicationConstants.AUTHORIZATION_CODE_GRANT_TYPE;
-import static com.pepcus.apps.constant.ApplicationConstants.BROKER_ID_PARAM;
-import static com.pepcus.apps.constant.ApplicationConstants.BROKER_NAME;
 import static com.pepcus.apps.constant.ApplicationConstants.IMPLICIT_GRANT_TYPE;
-import static com.pepcus.apps.constant.ApplicationConstants.ISSUER;
-import static com.pepcus.apps.constant.ApplicationConstants.JWK_URL;
-import static com.pepcus.apps.constant.ApplicationConstants.MAPPED_FIELD;
 import static com.pepcus.apps.constant.ApplicationConstants.OPEN_ID_GRANT_TYPE;
 import static com.pepcus.apps.constant.ApplicationConstants.REFRESH_TOKEN_GRANT_TYPE;
 import static com.pepcus.apps.constant.ApplicationConstants.RESOURCE_OWNER_GRANT_TYPE;
 import static com.pepcus.apps.constant.ApplicationConstants.SCOPE_ALL;
-import static com.pepcus.apps.constant.ApplicationConstants.USERINFO_URL;
-
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -25,10 +15,8 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
-
 import com.pepcus.apps.db.entities.OAuthClientDetails;
 import com.pepcus.apps.db.repositories.OAuthClientDetailsRepository;
-import com.pepcus.apps.utils.RequestUtils;
 
 /**
  * Class used to load "oauth_client_details" object from Database

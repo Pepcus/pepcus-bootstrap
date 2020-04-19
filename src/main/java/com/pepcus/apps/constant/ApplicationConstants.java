@@ -129,10 +129,6 @@ public class ApplicationConstants {
     public static final String CONTENT_TYPE_HEADER = "Content-Type";
     public static final String BEARER_TOKEN = "Bearer ";
     
-    public static final String BROKER_ID_PARAM = "brokerId";
-    public static final String COMPANY_ID_PARAM = "companyId";
-    public static final String USER_ID_PARAM = "userId";
-    public static final String CONFIGURATION_ID_PARAM = "configurationId";
     public static final String USER_PARAM = "user";
     public static final String ROLE_PARAM = "role";
     public static final String APP_AUTH_DATA = "appAuthData";
@@ -317,16 +313,6 @@ public class ApplicationConstants {
     public static final List<String> COLORS_FOR_CHART_LEGENDS = Arrays.asList("#f5a955", "#db6657", "#86c982", "#4ea9d6", "#9c6fb0", "#17ab9b", "#61839c", "#81bc45", 
             "#ccccc7", "#4794c3",  "#008080", "#e6beff", "#aa6e28", "#fffac8", "#800000", "#aaffc3", "#808000", "#ffd8b1", "#000080", "#808080");
     
-    public static final String DEFAULT_SORT_BY_LAWALERT_PUB_DATE = "-publicationDate";
-    public static final String LAWALERTS_DATE_PATTERN = "yyyy-MM";
-    public static final String LAWALERTS_JURISDICTION_ATTRIB = "jurisdiction";
-    public static final String LAWALERTS_STARTMONTH_ATTRIB = "startMonth";
-    public static final String LAWALERTS_ENDMONTH_ATTRIB = "endMonth";
-    public static final String LAWALERTS_PUBLICATION_DATE_ATTRIB = "publicationDate";
-    public static final String LAWALERTS_YEAR_ATTRIB = "year";
-    public static final String LAWALERTS_MONTH_ATTRIB = "month";
-    public static final String LAWALERTS_FEDERAL_ABBR = "FE";
-    public static final String LAWALERTS_FEDERAL_NAME = "Federal";
     
     public static final String EMPTY_STRING = "";
     public static final String NULL_STRING = "null";
@@ -345,53 +331,18 @@ public class ApplicationConstants {
 
     public static final List<String> SUPPORTED_MEDIA_TYPES = Arrays.asList(APPLICATION_JSON_VALUE, APPLICATION_XML_VALUE, MULTIPART_FORM_DATA_VALUE);
     
-    public static final String DEFAULT_SORT_BY_SIGNER_NAME= "+signerName";
-    public static final String DEFAULT_SORT_BY_DOCUMENT_NAME = "+documentName";
     
-    public static final String CORE_POLICY_TYPE = "core";
-    public static final String FEDERAL_POLICY_TYPE = "federal";
-    public static final String STATE_POLICY_TYPE = "state";
-    public static final String CUSTOM_POLICY_TYPE = "custom";
-    
-    public static final String CUSTOM_POLICIES_HEADING = "Custom Policies";
-    
-    public static final String AMPERSAND_ACTUAL_CHAR = "&";
-    public static final String AMPERSAND_REPLACED_CHAR = "&amp;";
-    public static final String BR_ACTUAL_TAG = "<br>";
-    public static final String BR_REPLACED_TAG = "<br/>";
-    public static final String HR_ACTUAL_TAG = "<hr>";
-    public static final String HR_REPLACED_TAG = "<hr/>";
-    public static final String PARAGRAPH_OPEN_TAG = "<p>";
-    public static final String PARAGRAPH_CLOSE_TAG = "</p>";
-    public static final String BLOCKQUOTE_OPEN_TAG = "<blockquote>";
-    public static final String BLOCKQUOTE_CLOSE_TAG = "</blockquote>";
-    
-    public static final String CLOSING_STATEMENT_SECTION = "Closing Statement";
-    public static final String ACKNOWLEDGEMENT_SECTION = "Acknowledgement of Receipt and Review";
-    
-    public static final String COMPANY_NAME_KEY = "{{COMPANY-NAME}}";
-    public static final String EMPLOYEE_TERM_KEY = "{{EMPLOYEE-TERM}}";
-    public static final String COMPANY_TERM_KEY = "{{COMPANY-TERM}}";
-    public static final String PRIMARY_CONTACT_KEY = "{{PRIMARY-CONTACT}}";
-    public static final String HEAD_COMPANY_KEY = "{{HEAD-OF-COMPANY}}";
-    public static final String HEAD_COMPANY_TITLE_KEY = "{{HEAD-OF-COMPANY-TITLE}}";
-    public static final String MANAGER_SUPERVISOR_KEY = "{{MANAGER-SUPERVISOR}}";
     
     public static final String API_ACCESS_TOKEN = "ACCESS_TOKEN_VALUE";
+    
+    
+    
+    public static final String LANGUAGE_EN = "en";
+    public static final String LANGUAGE_ES = "es";
+    
     
     public static final String WORD_FORMAT = "docx";
     public static final String PDF_FORMAT = "pdf";
     
-    public static final String MIME_TYPE_FOR_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    
-    public static final String LANGUAGE_EN = "en";
-    public static final String LANGUAGE_ES = "es";
-    public static final String LOGIN_IMPERSONATE_ACTION = "login";
-    public static final String LOGOUT_IMPERSONATE_ACTION = "logout";
-    public static final List<String> IMPERSONATE_ACTIONS = Arrays.asList(LOGIN_IMPERSONATE_ACTION,LOGOUT_IMPERSONATE_ACTION);
-    public static final String IMPERSONATION_RESOURCE = "impersonation";
-    
-    public static final List<String> RESOURCES_BROKERID_NOT_NEEDED = Arrays.asList(BROKER_RESOURCE, CREDENTIALS_RESOURCE, DOCUMENT_RESOURCE, HOTLINE_ISSUE_RESOURCE,
-            BRANDING_RESOURCE, IMPERSONATION_RESOURCE, SIGN_DOCUMENT_RESOURCE, SIGNATURE_RESOURCE);
                 
 }

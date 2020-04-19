@@ -1,20 +1,16 @@
 package com.pepcus.apps.security.permission;
 
-import static com.pepcus.apps.constant.ApplicationConstants.BROKER_ID_PARAM;
 import static com.pepcus.apps.constant.ApplicationConstants.CHILD_LEVEL_PERMISSION;
 import static com.pepcus.apps.constant.ApplicationConstants.DOT;
 import static com.pepcus.apps.constant.ApplicationConstants.PERMISSION_PREFIX;
 import static com.pepcus.apps.constant.ApplicationConstants.REQUEST_PARAMETERS;
 import static com.pepcus.apps.constant.ApplicationConstants.SELF_ACCESS_PERMISSION;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.CollectionUtils;
-
 import com.pepcus.apps.exception.APIErrorCodes;
 import com.pepcus.apps.exception.ApplicationException;
 import com.pepcus.apps.model.AppAuthData;

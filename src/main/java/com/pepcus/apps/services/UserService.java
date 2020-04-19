@@ -3,18 +3,23 @@ package com.pepcus.apps.services;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import static com.pepcus.apps.utils.EntitySearchUtil.getEntitySearchSpecification;
+import static com.pepcus.apps.utils.EntitySearchUtil.getPageable;
 import com.pepcus.apps.db.entities.RoleEntity;
 import com.pepcus.apps.db.entities.UserEntity;
 import com.pepcus.apps.exception.APIErrorCodes;
 import com.pepcus.apps.exception.ApplicationException;
 import com.pepcus.apps.services.crypto.AppEncryptorDecryptor;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  * The UserService class provides a collection of all
@@ -24,6 +29,8 @@ import com.pepcus.apps.services.crypto.AppEncryptorDecryptor;
 
 @Service
 public class UserService extends CommonEntityService {
+  
+  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private AppEncryptorDecryptor encDecyptor;
@@ -49,11 +56,20 @@ public class UserService extends CommonEntityService {
      * @param String searchSpec Search string for filtering results
      * @return List<User> object 
      */
+    
     public List<UserEntity> getAllUser(Integer offset, Integer limit, String sortField, 
             String searchSpec, String fields, 
             Map<String, String> requestParameters) throws ApplicationException  {
     	
-    	return Collections.EMPTY_LIST;
+      Pageable pageable = getPageable(offset, limit, sortField, getDefaultSortField());
+
+      logger.debug("Request parameters to filter, size and paginate records {}", requestParameters);
+      
+      Class kclass = UserEntity.class;
+      Specification<UserEntity> spec = getEntitySearchSpecification(searchSpec, requestParameters, kclass, new UserEntity());
+
+      //return findAll(pageable, spec, userRepository, USER_ID_PARAM);
+      return Collections.emptyList();
     }
 
     /**
@@ -62,15 +78,12 @@ public class UserService extends CommonEntityService {
      * @return User object 
      */
     public UserEntity getUser(Integer userId, String fields) {
-        Class kclass = UserEntity.class;
+      Class kclass = UserEntity.class;
         Map<String, List<String>> classVsFieldMap = validateFieldsAndGetClassVsFieldMap(fields, kclass);
-        
         UserEntity user = findOne(userId, kclass, userRepository, classVsFieldMap);
-        
         if (user == null) {
             throw ApplicationException.createEntityNotFoundError(APIErrorCodes.ENTITY_NOT_FOUND, "user", "userId = "+ userId);
         }
-        
         return user;
     }
 
