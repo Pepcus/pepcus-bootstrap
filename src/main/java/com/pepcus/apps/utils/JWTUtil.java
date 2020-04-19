@@ -24,7 +24,7 @@ import com.pepcus.apps.model.AppAuthData;
  *
  */
 
-public class JWTUtils {
+public class JWTUtil {
 
     /**
      * Get the values from map and set it to AppAuthToken

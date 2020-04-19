@@ -7,7 +7,7 @@ import static com.pepcus.apps.constant.ApplicationConstants.TOTAL_RECORDS;
 import static com.pepcus.apps.exception.APIErrorCodes.INVALID_FIELD_EXPRESSION;
 import static com.pepcus.apps.exception.APIErrorCodes.INVALID_FIELD_NAME;
 import static com.pepcus.apps.utils.EntitySearchUtil.classHasField;
-import static com.pepcus.apps.utils.RequestUtils.setRequestAttribute;
+import static com.pepcus.apps.utils.RequestUtil.setRequestAttribute;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

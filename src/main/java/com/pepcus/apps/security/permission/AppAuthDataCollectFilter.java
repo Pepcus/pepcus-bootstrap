@@ -17,8 +17,10 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import com.pepcus.apps.constant.ApplicationConstants;
 import com.pepcus.apps.model.AppAuthData;
 import com.pepcus.apps.security.oauth2.services.AppTokenEnhancer;
+import com.pepcus.apps.utils.RequestUtil;
 
 /**
  * Filter used to collect data from authorization token required for application.
@@ -52,10 +54,9 @@ public class AppAuthDataCollectFilter extends BasicAuthenticationFilter {
                     //Setting accessToken to request attribute for use in Handbook Get Content API.
                     request.setAttribute(API_ACCESS_TOKEN, token); 
                     AppAuthData appAuthData = tokenEnhancer.getAppAuthData(token);
+                    
                     //Setting data to request attributes which we can fetch in future
-                    request.setAttribute(APP_AUTH_DATA, appAuthData);
-                    request.setAttribute(ROLE_PARAM, appAuthData.getRole());
-                    request.setAttribute("REQUEST_PARAM", request.getParameterMap());
+                    RequestUtil.setRequestAttribute(ApplicationConstants.APP_AUTH_DATA, appAuthData);
                 }
             }
         } catch (Exception ex) {

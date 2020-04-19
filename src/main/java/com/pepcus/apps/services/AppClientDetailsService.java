@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
-import com.pepcus.apps.db.entities.OAuthClientDetailsEntity;
+import com.pepcus.apps.db.entities.OAuthTenantDetailsEntity;
 import com.pepcus.apps.db.repositories.OAuthClientDetailsRepository;
 
 /**
@@ -36,7 +36,7 @@ public class AppClientDetailsService implements ClientDetailsService {
     
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
-        OAuthClientDetailsEntity authDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
+        OAuthTenantDetailsEntity authDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,true);
         if (authDetails == null) {
             throw new InvalidClientException("Bad Credentials");
         }
@@ -52,8 +52,8 @@ public class AppClientDetailsService implements ClientDetailsService {
                                                             REFRESH_TOKEN_GRANT_TYPE,
                                                             AUTHORIZATION_CODE_GRANT_TYPE,
                                                             OPEN_ID_GRANT_TYPE));
-        if (authDetails.getRedirectUrl() != null) {
-            clientDetails.setRegisteredRedirectUri(new HashSet<String>(Arrays.asList(authDetails.getRedirectUrl())));
+        if (authDetails.getRedirectUri() != null) {
+            clientDetails.setRegisteredRedirectUri(new HashSet<String>(Arrays.asList(authDetails.getRedirectUri())));
         }
         return clientDetails;
     }

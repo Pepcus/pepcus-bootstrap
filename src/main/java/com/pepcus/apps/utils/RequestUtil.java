@@ -17,7 +17,7 @@ import com.pepcus.apps.model.AppAuthData;
  * Helper class to deal with HttpRequest object for application
  * 
  */
-public class RequestUtils {
+public class RequestUtil {
 
     /**
      * Fetch request object from RequestContextHolder 

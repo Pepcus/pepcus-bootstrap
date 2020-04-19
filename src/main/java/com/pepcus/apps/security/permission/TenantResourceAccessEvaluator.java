@@ -7,14 +7,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.pepcus.apps.services.UserService;
-import com.pepcus.apps.utils.RequestUtil;
 
 /**
  * Class to evaluate different levels of access with given permission for 'users' resource
  * 
  */
-@Service("user")
-public class UserResourceAccessEvaluator implements ResourceAccessEvaluator {
+@Service("tenant")
+public class TenantResourceAccessEvaluator implements ResourceAccessEvaluator {
     
     @Autowired
     UserService userService;
@@ -30,15 +29,15 @@ public class UserResourceAccessEvaluator implements ResourceAccessEvaluator {
 	@Override
 	public boolean hasFirstLevelAdminAccess(Authentication authentication, String resource, String permission,
 			Serializable objectId) {
-		return authentication.getAuthorities().contains("TENANT_ADMIN");
+		return false;
 	}
 
 
 	@Override
 	public boolean hasSelfAccess(Authentication authentication, String resource, String permission,
 			Serializable objectId) {
-
-		return RequestUtil.getAppAuthData().getUserId().equals((Integer)objectId);
+		
+		return false;
 	}
     
 }

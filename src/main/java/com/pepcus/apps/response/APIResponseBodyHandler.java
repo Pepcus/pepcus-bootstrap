@@ -8,7 +8,7 @@ import static com.pepcus.apps.constant.ApplicationConstants.SORT_PARAM;
 import static com.pepcus.apps.constant.ApplicationConstants.SUCCESS_DELETED;
 import static com.pepcus.apps.constant.ApplicationConstants.TOTAL_RECORDS;
 import static com.pepcus.apps.utils.APIMessageUtil.getMessageFromResourceBundle;
-import static com.pepcus.apps.utils.RequestUtils.getRequestAttribute;
+import static com.pepcus.apps.utils.RequestUtil.getRequestAttribute;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.pepcus.apps.response.HealthCheckResponse;
+import com.pepcus.apps.model.HealthCheckResponse;
 
 /**
  *

@@ -27,6 +27,6 @@ public class AppAuthData {
             permissions = new ArrayList<String>();
         }
         
-        permissions.add(permission);
+        permissions.add(role);
     }
 }

@@ -1,12 +1,9 @@
 package com.pepcus.apps.db.entities;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -18,15 +15,13 @@ public class BaseEntity implements SearchableEntity {
 	//We can put all the common attributes that is needed for all entities like created_on, modified_on, created_by and modified_by.
 	@NotNull
 	@Column(name = "is_active")
-	private String isActive;
+	private Boolean isActive;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_on")
-	private Date createdOn;
+	private Long createdOn = System.currentTimeMillis();
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "modified_on")
-	private Date modifiedOn;
+	private Long modifiedOn;
 
 	@Column(name = "created_by")
 	private String createdBy;

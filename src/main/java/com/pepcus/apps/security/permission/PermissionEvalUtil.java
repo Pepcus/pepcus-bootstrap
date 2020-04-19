@@ -14,7 +14,7 @@ import org.springframework.util.CollectionUtils;
 import com.pepcus.apps.exception.APIErrorCodes;
 import com.pepcus.apps.exception.ApplicationException;
 import com.pepcus.apps.model.AppAuthData;
-import com.pepcus.apps.utils.RequestUtils;
+import com.pepcus.apps.utils.RequestUtil;
 
 public class PermissionEvalUtil {
 
@@ -26,7 +26,7 @@ public class PermissionEvalUtil {
     public static <T> boolean hasPermission(Collection<? extends GrantedAuthority> availableAuthorities,
             List<String> requiredPermissions) {
         if (CollectionUtils.isEmpty(availableAuthorities)) {
-            AppAuthData appAuthData = RequestUtils.getAppAuthData();
+            AppAuthData appAuthData = RequestUtil.getAppAuthData();
             if (appAuthData.getPermissions() != null) {
                 for ( String perm : appAuthData.getPermissions()) {
                     if (requiredPermissions.contains(perm)) {
@@ -53,7 +53,7 @@ public class PermissionEvalUtil {
             String requiredPermission) {
         
         if (CollectionUtils.isEmpty(availableAuthorities)) {
-            AppAuthData appAuthData = RequestUtils.getAppAuthData();
+            AppAuthData appAuthData = RequestUtil.getAppAuthData();
             if (appAuthData.getPermissions() != null) {
                 return appAuthData.getPermissions().contains(requiredPermission);
             }
@@ -109,7 +109,7 @@ public class PermissionEvalUtil {
      * @return
      */
     public static Integer getFromRequestParam(String paramName) {
-        Map<String, String[]> requestParamMap = (Map<String, String[]>) RequestUtils
+        Map<String, String[]> requestParamMap = (Map<String, String[]>) RequestUtil
                 .getRequestAttribute(REQUEST_PARAMETERS);
         
         if (requestParamMap == null) {

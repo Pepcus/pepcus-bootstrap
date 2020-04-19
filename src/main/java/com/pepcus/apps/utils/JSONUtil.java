@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-public class JSONUtils {
+public class JSONUtil {
 	
     /**
      * Get File Object from MultipartFile Object

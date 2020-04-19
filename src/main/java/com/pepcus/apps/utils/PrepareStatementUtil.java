@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
  * used while batch processing.  
  * 
  */
-public class PrepareStatementUtils {
+public class PrepareStatementUtil {
     
     /**
      * To get an instance of preparedStatement

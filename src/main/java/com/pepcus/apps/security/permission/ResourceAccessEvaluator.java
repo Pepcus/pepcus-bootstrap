@@ -27,7 +27,6 @@ public interface ResourceAccessEvaluator {
         
         return hasAdminAccess(authentication, resource, permission, objectId) ||
                 hasFirstLevelAdminAccess(authentication, resource, permission, objectId) ||
-                hasSecondLevelAdminAccess(authentication, resource, permission, objectId) ||
                 hasSelfAccess(authentication, resource, permission, objectId);                            
     }
 
@@ -53,18 +52,6 @@ public interface ResourceAccessEvaluator {
      * @return
      */
     public boolean hasFirstLevelAdminAccess(Authentication authentication,
-            String resource, String permission, Serializable objectId);
-    
-    /**
-     * To evaluate whether logged in user has Second level (RE, RE Admin) access to resource for given permission and objectId
-     * 
-     * @param authentication
-     * @param resource
-     * @param permission
-     * @param objectId
-     * @return
-     */
-    public boolean hasSecondLevelAdminAccess(Authentication authentication,
             String resource, String permission, Serializable objectId);
 
     /**

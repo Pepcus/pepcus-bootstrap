@@ -1,4 +1,4 @@
-package com.pepcus.apps.response;
+package com.pepcus.apps.model;
 
 import lombok.Data;
 

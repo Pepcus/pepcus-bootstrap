@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pepcus.apps.constant.ApplicationConstants;
+import com.pepcus.apps.services.crypto.BCryptPasswordEncryptor;
 
 /**
  * To keep some common util methods 
@@ -138,5 +139,8 @@ public class CommonUtil {
         FileUtils.copyInputStreamToFile(fileToUpload.getInputStream(), file);
         return file;
     }
-	
+
+    public static void main(String args[]) {
+        System.out.println(new BCryptPasswordEncryptor().encrypt("123456"));
+    }
 }

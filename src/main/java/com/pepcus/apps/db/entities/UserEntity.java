@@ -15,11 +15,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.cache.annotation.Cacheable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,12 +26,10 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="user")
+@Table(name="users")
 @DynamicUpdate
 @DynamicInsert
 @JsonInclude(Include.NON_EMPTY)
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserEntity extends BaseEntity {
 
 

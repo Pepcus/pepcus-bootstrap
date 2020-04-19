@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pepcus.apps.utils.PrepareStatementUtils;
+import com.pepcus.apps.utils.PrepareStatementUtil;
 
 import lombok.Data;
 

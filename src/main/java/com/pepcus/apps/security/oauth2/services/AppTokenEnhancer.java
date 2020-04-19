@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.util.CollectionUtils;
 
 import com.pepcus.apps.constant.ApplicationConstants;
-import com.pepcus.apps.db.entities.OAuthClientDetailsEntity;
+import com.pepcus.apps.db.entities.OAuthTenantDetailsEntity;
 import com.pepcus.apps.db.entities.RoleEntity;
 import com.pepcus.apps.db.entities.UserEntity;
 import com.pepcus.apps.db.repositories.OAuthClientDetailsRepository;
@@ -25,7 +25,7 @@ import com.pepcus.apps.db.repositories.UserRepository;
 import com.pepcus.apps.exception.APIErrorCodes;
 import com.pepcus.apps.exception.ApplicationException;
 import com.pepcus.apps.model.AppAuthData;
-import com.pepcus.apps.utils.JWTUtils;
+import com.pepcus.apps.utils.JWTUtil;
 
 import lombok.Data;
 
@@ -78,7 +78,7 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
      * @return
      */
     public AppAuthData getAppAuthData (String token) {
-        AppAuthData appAuthData = JWTUtils.prepareAuthToken(decode(token));
+        AppAuthData appAuthData = JWTUtil.prepareAuthToken(decode(token));
         
         if (!issuer.equalsIgnoreCase(appAuthData.getIss())) {
             throw ApplicationException.createAuthorizationError(APIErrorCodes.AUTHORIZATION_FAILED, "issuer = "+ issuer);
@@ -112,11 +112,12 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
         UserEntity user = userRepository.findByUsername(userDetails.getUsername());
         
         String clientId = authentication.getOAuth2Request().getClientId(); 
-        OAuthClientDetailsEntity authClientDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
+        OAuthTenantDetailsEntity authClientDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,true);
         
-        if (!authClientDetails.getTenantKey().equals(tenantKey)) {
+       //TODO: Handle below conditional as per requirement 
+       /* if (!authClientDetails.getTenantKey().equals(tenantKey)) {
         	throw new InvalidClientException("Bad Credentials");
-        }
+        } */
         
         //In case any additional informations are required
         additionalInfo = new HashMap<String, Object>();
