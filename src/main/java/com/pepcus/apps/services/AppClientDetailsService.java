@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
-import com.pepcus.apps.db.entities.OAuthClientDetails;
+import com.pepcus.apps.db.entities.OAuthClientDetailsEntity;
 import com.pepcus.apps.db.repositories.OAuthClientDetailsRepository;
 
 /**
@@ -36,7 +36,7 @@ public class AppClientDetailsService implements ClientDetailsService {
     
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
-        OAuthClientDetails authDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
+        OAuthClientDetailsEntity authDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
         if (authDetails == null) {
             throw new InvalidClientException("Bad Credentials");
         }

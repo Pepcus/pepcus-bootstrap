@@ -28,7 +28,7 @@ import lombok.Data;
 @Table(name = "auth_tenant_details")
 @Data
 @JsonInclude(Include.NON_EMPTY)
-public class OAuthClientDetails extends BaseEntity {
+public class OAuthClientDetailsEntity extends BaseEntity {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -48,6 +48,30 @@ public class OAuthClientDetails extends BaseEntity {
     @URL
     @Column(name = "redirect_url")
     private String redirectUrl;
+    
+    @Column(name = "scope")
+    private String scope;
+    
+    @Column(name = "authorized_grant_types")
+    private String authorizedGrantTypes;
+    
+    @Column(name = "web_server_redirect_uri")
+    private String webServerRedirectUri;
+    
+    @Column(name = "authorities")
+    private String authorities;
+    
+    @Column(name = "access_token_validity")
+    private Integer accessTokenValidity;
+    
+    @Column(name = "refresh_token_validity")
+    private String refreshTokenValidity;
+    
+    @Column(name = "additional_information")
+    private String additionalInformation;
+    
+    @Column(name = "autoapprove")
+    private String autoapprove;
     
     @Formula("select key from tenant where id= tenantId")
     private String tenantKey;

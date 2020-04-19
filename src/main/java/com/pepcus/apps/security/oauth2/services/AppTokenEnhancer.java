@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.util.CollectionUtils;
 
 import com.pepcus.apps.constant.ApplicationConstants;
-import com.pepcus.apps.db.entities.OAuthClientDetails;
+import com.pepcus.apps.db.entities.OAuthClientDetailsEntity;
 import com.pepcus.apps.db.entities.RoleEntity;
 import com.pepcus.apps.db.entities.UserEntity;
 import com.pepcus.apps.db.repositories.OAuthClientDetailsRepository;
@@ -112,7 +112,7 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
         UserEntity user = userRepository.findByUsername(userDetails.getUsername());
         
         String clientId = authentication.getOAuth2Request().getClientId(); 
-        OAuthClientDetails authClientDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
+        OAuthClientDetailsEntity authClientDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
         
         if (!authClientDetails.getTenantKey().equals(tenantKey)) {
         	throw new InvalidClientException("Bad Credentials");
