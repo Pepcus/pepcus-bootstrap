@@ -33,8 +33,8 @@ public class ResourceServerSecurityConfig extends ResourceServerConfigurerAdapte
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver resolver;
     
-    @Value("#{'${japi.skip.authorization.urls}'.split(',')}")
-    private List<String> skipAuthorizationUrls;
+    //@Value("#{'${skip.authorization.urls}'.split(',')}")
+    //private List<String> skipAuthorizationUrls;
     
     @Value("${JWT.jwt_key}")
     private String key;

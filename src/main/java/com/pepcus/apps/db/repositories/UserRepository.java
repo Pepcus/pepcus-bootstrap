@@ -10,7 +10,7 @@ public interface UserRepository extends BaseRepository<UserEntity, Integer> {
     
     //public final String isThroneAndActiveUser = "company.isThroneCompany=1 and isActive=1";
     //public final String isThroneUser = "company.isThroneCompany=1";
-    public UserEntity findByLogin_UserName(String username);
+    public UserEntity findByUsername(String username);
     
    
 

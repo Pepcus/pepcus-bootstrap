@@ -85,7 +85,7 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
         }
         // Validate user
         if (StringUtils.isNotBlank(appAuthData.getUser())) {
-            UserEntity user = userRepository.findByLogin_UserName(appAuthData.getUser());
+            UserEntity user = userRepository.findByUsername(appAuthData.getUser());
             if (null == user){
                 throw ApplicationException.createAuthorizationError(APIErrorCodes.AUTHORIZATION_FAILED, "user = "+ appAuthData.getUser());
             }
@@ -109,12 +109,11 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
     private void setAdditionalInfo(OAuth2Authentication authentication) {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         
-        UserEntity user = userRepository.findByLogin_UserName(userDetails.getUsername());
+        UserEntity user = userRepository.findByUsername(userDetails.getUsername());
         
         String clientId = authentication.getOAuth2Request().getClientId(); 
         OAuthClientDetails authClientDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,"1");
         
-        // Commented by sandeep : need to fix
         if (!authClientDetails.getTenantKey().equals(tenantKey)) {
         	throw new InvalidClientException("Bad Credentials");
         }
@@ -140,13 +139,13 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
      * @return
      */
     private RoleEntity validatePermissions(AppAuthData authData) {
-    	RoleEntity throneRole = roleRepository.findByNameAndTenantKey(authData.getRole(), authData.getTenantKey());
-        if (CollectionUtils.isEmpty(throneRole.getPermissions())) {
+    	RoleEntity roleEntity = roleRepository.findByNameAndTenantKey(authData.getRole(), authData.getTenantKey());
+        if (CollectionUtils.isEmpty(roleEntity.getPermissions())) {
             throw ApplicationException.createAuthorizationError(APIErrorCodes.AUTHORIZATION_FAILED, 
             		"role = "+ authData.getRole() + " have not assigned any permission");
         } 
 
-        return throneRole;
+        return roleEntity;
     }
  
 }

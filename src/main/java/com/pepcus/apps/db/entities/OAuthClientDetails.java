@@ -1,25 +1,26 @@
 package com.pepcus.apps.db.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.URL;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import lombok.Data;
 
 /**
  * 
  * Database entity object for OAuthClientDetails
  * 
- * Name of database table is app_throne_oauth_client_details
+ * Name of database table is auth_tenant_details
  * 
  *
  */
@@ -30,11 +31,13 @@ import lombok.Data;
 public class OAuthClientDetails extends BaseEntity {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name="tenantId")
-    private Integer tenantId;
+    
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tenant_id")
+    private TenantEntity tenant;
     
     @Column(name = "client_id")
     private String clientId;

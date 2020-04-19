@@ -13,7 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
+import org.hibernate.annotations.Formula;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -26,7 +26,7 @@ import lombok.Data;
 public class RoleEntity extends BaseEntity {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @Column(name = "key")
@@ -40,17 +40,18 @@ public class RoleEntity extends BaseEntity {
   @Column(name = "description")
   private String description;
   
+  @Column(name = "tenant_key")
+  private String tenantKey;
+  
   @NotNull
   @Column(name = "type")
   private String type;
   
-  //Add association between role and permission
-  @ManyToMany(fetch=FetchType.EAGER)
-  @JoinTable(
-          name = "permission", 
-          joinColumns = { @JoinColumn(name = "roleId") }, 
-          inverseJoinColumns = { @JoinColumn(name = "permissionId") }
-  )
-
-  private Set<PermissionEntity> permissions;
+  @ManyToMany(targetEntity = PermissionEntity.class)
+  @JoinTable(name="sysadm_permission_role_relns",
+      joinColumns=@JoinColumn(name="role_id"), 
+      inverseJoinColumns=@JoinColumn(name="permission_id"))
+  public Set<PermissionEntity> permissions;
+  
+  
 }

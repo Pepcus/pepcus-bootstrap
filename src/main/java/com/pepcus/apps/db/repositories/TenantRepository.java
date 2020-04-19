@@ -8,7 +8,7 @@ import com.pepcus.apps.db.entities.TenantEntity;
  */
 public interface TenantRepository extends BaseRepository<TenantEntity, Integer> {
     
-    public TenantEntity findByTenantName(String tenantName);
+    public TenantEntity findByName(String tenantName);
 
-    public TenantEntity findByTenantKey(String tenantKey);
+    public TenantEntity findByKey(String tenantKey);
 }

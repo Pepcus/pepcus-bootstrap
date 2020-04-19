@@ -30,7 +30,7 @@ import com.pepcus.apps.db.repositories.BaseRepositoryImpl;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactory", 
         transactionManagerRef = "transactionManager",
-        basePackages = { "com.pepcus.apps.repositories" },
+        basePackages = { "com.pepcus.apps.db.repositories" },
         repositoryBaseClass = BaseRepositoryImpl.class
 )
 public class DatabaseConfig {
