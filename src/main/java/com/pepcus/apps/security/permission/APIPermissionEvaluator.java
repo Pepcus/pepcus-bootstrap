@@ -1,7 +1,6 @@
 package com.pepcus.apps.security.permission;
 
 import java.io.Serializable;
-
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -12,49 +11,52 @@ import org.springframework.stereotype.Service;
 /**
  * Class used for evaluating permissions on the basis of Authentication object
  * 
+ * @author Sandeep.Vishwakarma
+ *
  */
 @Service
 public class APIPermissionEvaluator implements PermissionEvaluator {
-    
-    @Autowired @Lazy
-    ResourceAccessEvaluatorFactory accessEvaluatorFactory;
-    
-    /**
-     * To evaluate permission for user and provide access of requested API
-     * 
-     * @param authentication
-     * @param targetId
-     * @param resource  
-     * @param permission
-     * @return
-     */
-    private boolean evaluatePermissions(Authentication authentication,
-            Serializable targetId, String resource, String permission) {
 
-        ResourceAccessEvaluator resourceAccessEvaluator = null;
-        try {
-            resourceAccessEvaluator = accessEvaluatorFactory.getService(resource);
-        } catch (NoSuchBeanDefinitionException e) {
-        	return true;
-        }
+  @Autowired
+  @Lazy
+  ResourceAccessEvaluatorFactory accessEvaluatorFactory;
 
-        return resourceAccessEvaluator
-                .evaluate(authentication, resource, permission, targetId);
+  /**
+   * To evaluate permission for user and provide access of requested API
+   * 
+   * @param authentication
+   * @param targetId
+   * @param resource
+   * @param permission
+   * @return
+   */
+  private boolean evaluatePermissions(Authentication authentication,
+      Serializable targetId,
+      String resource,
+      String permission) {
+
+    ResourceAccessEvaluator resourceAccessEvaluator = null;
+    try {
+      resourceAccessEvaluator = accessEvaluatorFactory.getService(resource);
+    } catch (NoSuchBeanDefinitionException e) {
+      return true;
     }
 
-    @Override
-    public boolean hasPermission(Authentication authentication, Object resource,
-            Object permission) {
-        return evaluatePermissions(authentication, null, (String) resource,
-                (String) permission);
+    return resourceAccessEvaluator.evaluate(authentication, resource, permission, targetId);
+  }
 
-    }
+  @Override
+  public boolean hasPermission(Authentication authentication, Object resource, Object permission) {
+    return evaluatePermissions(authentication, null, (String) resource, (String) permission);
 
-    @Override
-    public boolean hasPermission(Authentication authentication,
-            Serializable targetId, String resource, Object permission) {
-        return evaluatePermissions(authentication, targetId, resource,
-                (String) permission);
-    }
-    
+  }
+
+  @Override
+  public boolean hasPermission(Authentication authentication,
+      Serializable targetId,
+      String resource,
+      Object permission) {
+    return evaluatePermissions(authentication, targetId, resource, (String) permission);
+  }
+
 }

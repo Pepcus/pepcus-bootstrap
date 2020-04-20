@@ -12,18 +12,20 @@ import com.pepcus.apps.services.UserService;
 /**
  * User Controller for performing operations related with User object.
  * 
+ * @author Sandeep.Vishwakarma
+ *
  */
 @RestController
 @Validated
 @RequestMapping(path = "/v1/users")
 public class UserController {
-	  
-	  private static Logger logger = LoggerFactory.getLogger(UserController.class);
-	  
-	  @Autowired 
-	  UserService userService;
-	  
-	  @Autowired 
-	  MessageResourceHandler resourceHandler;
-	  
+
+  private static Logger logger = LoggerFactory.getLogger(UserController.class);
+
+  @Autowired
+  UserService userService;
+
+  @Autowired
+  MessageResourceHandler resourceHandler;
+
 }

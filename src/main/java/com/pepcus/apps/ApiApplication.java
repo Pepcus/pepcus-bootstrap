@@ -5,11 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 /**
  * Main class for Spring Boot based API application.
  * 
+ * @author Sandeep.Vishwakarma
+ *
  */
-
 @SpringBootApplication
 public class ApiApplication {
 
@@ -18,8 +20,7 @@ public class ApiApplication {
   /**
    * Main method for spring application
    * 
-   * @param args command line arguments passed to app
-   * 
+   * @param args
    */
   public static void main(String[] args) {
     SpringApplication.run(ApiApplication.class, args);

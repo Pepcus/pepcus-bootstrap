@@ -12,7 +12,9 @@ import javax.persistence.Table;
 import lombok.Data;
 
 /**
- * @author sandeep.vishwakarma
+ * Database relationship object for 'role & permission' database table
+ * 
+ * @author Sandeep.Vishwakarma
  *
  */
 @Data
@@ -30,7 +32,7 @@ public class RolePermissionRelationEntity extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "permission_id")
-  private RoleEntity permission;
+  private PermissionEntity permission;
 
 
 }

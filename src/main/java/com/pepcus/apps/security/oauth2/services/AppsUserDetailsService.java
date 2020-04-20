@@ -12,6 +12,8 @@ import com.pepcus.apps.db.entities.UserEntity;
 import com.pepcus.apps.db.repositories.UserRepository;
 
 /**
+ * Implementation class of UserDetailsService to load user data for Security
+ * 
  * @author sandeep.vishwakarma
  *
  */

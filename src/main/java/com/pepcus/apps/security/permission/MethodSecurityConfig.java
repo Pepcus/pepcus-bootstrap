@@ -8,23 +8,23 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
 /**
- * Global method security configuration for roles/permissions based access
- * control
+ * Global method security configuration for roles/permissions based access control
  * 
+ * @author Sandeep.Vishwakarma
+ *
  */
-
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
-    @Autowired
-    APIPermissionEvaluator permissionEvaluator;
+  @Autowired
+  APIPermissionEvaluator permissionEvaluator;
 
-    @Override
-    protected MethodSecurityExpressionHandler createExpressionHandler() {
-        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setPermissionEvaluator(permissionEvaluator);
-        return expressionHandler;
-    }
+  @Override
+  protected MethodSecurityExpressionHandler createExpressionHandler() {
+    DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+    expressionHandler.setPermissionEvaluator(permissionEvaluator);
+    return expressionHandler;
+  }
 
 }

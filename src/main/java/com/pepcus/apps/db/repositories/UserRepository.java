@@ -3,15 +3,15 @@ package com.pepcus.apps.db.repositories;
 import com.pepcus.apps.db.entities.UserEntity;
 
 /**
- * User repository for user entity.
- *  
+ * Repository for "User" entity.
+ * 
+ * @author Sandeep.Vishwakarma
+ *
  */
 public interface UserRepository extends BaseRepository<UserEntity, Integer> {
-    
-    //public final String isThroneAndActiveUser = "company.isThroneCompany=1 and isActive=1";
-    //public final String isThroneUser = "company.isThroneCompany=1";
-    public UserEntity findByUsername(String username);
-    
-   
+
+  public UserEntity findByUsername(String username);
+
+
 
 }

@@ -6,8 +6,9 @@ import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
-import com.pepcus.apps.exception.ApplicationException;
 import com.pepcus.apps.constant.ApplicationConstants;
+import com.pepcus.apps.exception.APIErrorCodes;
+import com.pepcus.apps.exception.ApplicationException;
 
 public class DataValidator {
 
@@ -147,10 +148,8 @@ public class DataValidator {
     if (value != null) {
       if (value.doubleValue() < lowerLimited || value.doubleValue() > upperLimited) {
         if (error == null) {
-          /*
-           * throw new ApplicationException(propName + " must be between " +
-           * Double.toString(lowerLimited) + " and " + Double.toString(upperLimited));
-           */
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_BETWEEN, propName,
+              Double.toString(lowerLimited), Double.toString(upperLimited));
         } else {
           throw error;
         }
@@ -163,7 +162,7 @@ public class DataValidator {
       String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
       if (!value.matches(EMAIL_REGEX)) {
         if (error == null) {
-          // throw new ApplicationException(propName + " is not a valid email address.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_EMAIL, propName);
         } else {
           throw error;
         }
@@ -182,7 +181,7 @@ public class DataValidator {
           reference = Double.toString(limit);
         }
         if (error == null) {
-          throw new ApplicationException(propName + " must be less than " + reference);
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_LESS, propName, reference);
         } else {
           throw error;
         }
@@ -201,7 +200,7 @@ public class DataValidator {
           reference = Double.toString(limit);
         }
         if (error == null) {
-          throw new ApplicationException(propName + " must be greater than " + reference);
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_GREATER, propName, reference);
         } else {
           throw error;
         }
@@ -220,7 +219,7 @@ public class DataValidator {
           reference = Double.toString(limit);
         }
         if (error == null) {
-          throw new ApplicationException(propName + " cannot be greater than " + reference);
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_CANNOT_GREATER, propName, reference);
         } else {
           throw error;
         }
@@ -239,7 +238,7 @@ public class DataValidator {
           reference = Double.toString(limit);
         }
         if (error == null) {
-          throw new ApplicationException(propName + "cannot be less than " + reference);
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_CANNOT_LESS, propName, reference);
         } else {
           throw error;
         }
@@ -251,7 +250,7 @@ public class DataValidator {
     if (value != null) {
       if (value.doubleValue() == 0.0) {
         if (error == null) {
-          throw new ApplicationException(propName + " must not be zero.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_CANNOT_ZERO, propName);
         } else {
           throw error;
         }
@@ -263,7 +262,7 @@ public class DataValidator {
     if (value != null) {
       if (value.doubleValue() > 0.0) {
         if (error == null) {
-          throw new ApplicationException(propName + " must be non-positive.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_NEG, propName);
         } else {
           throw error;
         }
@@ -277,7 +276,7 @@ public class DataValidator {
         integer(propName, Double.parseDouble(svalue), error);
       } catch (NumberFormatException ex) {
         if (error == null) {
-          throw new ApplicationException(propName + " must be integer.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_INT, propName);
         } else {
           throw error;
         }
@@ -289,7 +288,7 @@ public class DataValidator {
     if (value != null) {
       if (Math.floor(value.doubleValue()) != value.doubleValue()) {
         if (error == null) {
-          throw new ApplicationException(propName + " must be integer.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_INT, propName);
         } else {
           throw error;
         }
@@ -301,7 +300,7 @@ public class DataValidator {
     if (value != null) {
       if (value.doubleValue() < 0.0) {
         if (error == null) {
-          throw new ApplicationException(propName + " must be non-negative.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_POS, propName);
         } else {
           throw error;
         }
@@ -312,7 +311,7 @@ public class DataValidator {
   private static void nonNull(String propName, Object value, ApplicationException error) {
     if (value == null) {
       if (error == null) {
-        throw new ApplicationException("Bad or missing data in request: " + propName);
+        throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_MISSING, propName);
       } else {
         throw error;
       }
@@ -323,7 +322,7 @@ public class DataValidator {
     nonNull(propName, value, error);
     if (value.trim().length() == 0.0) {
       if (error == null) {
-        throw new ApplicationException("Bad or missing data in request: " + propName);
+        throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_MISSING, propName);
       } else {
         throw error;
       }
@@ -335,7 +334,7 @@ public class DataValidator {
       String match = containsIllegals(value);
       if (match != null) {
         if (error == null) {
-          throw new ApplicationException(propName + " cannot have character " + match);
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_BAD_CHARS, propName);
         } else {
           throw error;
         }
@@ -350,7 +349,7 @@ public class DataValidator {
       Boolean match = (m.find() && m.group().equals(value));
       if (!match) {
         if (error == null) {
-          throw new ApplicationException(propName + " must be alphabets only.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_ALPHABET_ONLY, propName);
         } else {
           throw error;
         }
@@ -363,7 +362,8 @@ public class DataValidator {
     if (value != null) {
       if (value.length() > len) {
         if (error == null) {
-          throw new ApplicationException(propName + " must not exceed " + len + " characters.");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_LENGTH_TOO_LONG, propName,
+              Integer.toString(len));
         } else {
           throw error;
         }
@@ -385,7 +385,7 @@ public class DataValidator {
     if (value != null) {
       if (!value.matches("[- +()0-9]+")) {
         if (error == null) {
-          throw new ApplicationException(propName + " is not a valid phone number");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_PHONE, propName);
         } else {
           throw error;
         }
@@ -399,12 +399,46 @@ public class DataValidator {
         Double.parseDouble(value);
       } catch (NumberFormatException ex) {
         if (error == null) {
-          throw new ApplicationException(propName + " is not a number");
+          throw ApplicationException.createBadRequest(APIErrorCodes.VALUE_NOT_NUMBER, propName);
         } else {
           throw error;
         }
       }
     }
+  }
+
+  public static void validateValues(String propName, String value, Collection<String> possibleValues) {
+    if (StringUtils.isNotBlank(value)) {
+      if (!containsCaseInsensitive(value, possibleValues)) {
+        throw ApplicationException.createBadRequest(APIErrorCodes.INVALID_VALUES, propName, possibleValues.toString());
+      }
+    }
+  }
+
+  /**
+   * This method is validate date format 'YYYY-MM-DD' and check valid date
+   * 
+   * @param propName
+   * @param value
+   */
+  public static void validateDate(String propName, String value, String dateFormat) {
+    if (!isValidDate(value, dateFormat)) {
+      throw new ApplicationException(APIErrorCodes.INVALID_DATE_FORMAT, propName, dateFormat);
+    }
+  }
+
+
+  private static boolean isValidDate(String dateStr, String format) {
+    boolean isValidDate = false;
+    try {
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+      simpleDateFormat.setLenient(false);
+      simpleDateFormat.parse(dateStr);
+      isValidDate = true;
+    } catch (ParseException e) {
+      isValidDate = false;
+    }
+    return isValidDate;
   }
 
   public static ValidationType notLongerThan(int len) {
@@ -467,42 +501,4 @@ public class DataValidator {
     return l.stream().anyMatch(x -> x.equalsIgnoreCase(s));
   }
 
-  public static void validateValues(String propName, String value, Collection<String> possibleValues) {
-    if (StringUtils.isNotBlank(value)) {
-      if (!containsCaseInsensitive(value, possibleValues)) {
-        throw new ApplicationException(
-            "Invalid value for " + propName + ", valid values are " + possibleValues.toString());
-      }
-    }
-  }
-
-  /**
-   * This method is validate date format 'YYYY-MM-DD' and check valid date
-   * 
-   * @param propName
-   * @param value
-   */
-  public static void validateDate(String propName, String value) {
-    if ((!validateDateFormat(value)) || !isValidDate(value, ApplicationConstants.DATE_FORMAT_DD_MM_YYYY)) {
-      throw new ApplicationException("Invalid value for " + propName + ", Acceptable date formats are "
-          + ApplicationConstants.DATE_FORMAT_DD_MM_YYYY);
-    }
-  }
-
-  private static boolean validateDateFormat(String date) {
-    return (date.matches("\\d{2}/\\d{2}/\\d{4}")) ? true : false;
-  }
-
-  private static boolean isValidDate(String dateStr, String format) {
-    boolean isValidDate = false;
-    try {
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
-      simpleDateFormat.setLenient(false);
-      simpleDateFormat.parse(dateStr);
-      isValidDate = true;
-    } catch (ParseException e) {
-      isValidDate = false;
-    }
-    return isValidDate;
-  }
 }

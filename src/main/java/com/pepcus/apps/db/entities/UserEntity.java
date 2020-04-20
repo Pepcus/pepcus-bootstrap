@@ -1,7 +1,6 @@
 package com.pepcus.apps.db.entities;
 
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,19 +13,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import lombok.Data;
 
+/**
+ * Database entity object for 'oauth_tenant_details' database table
+ * 
+ * @author Sandeep.Vishwakarma
+ *
+ */
 @Entity
 @Data
-@Table(name="users")
+@Table(name = "users")
 @DynamicUpdate
 @DynamicInsert
 @JsonInclude(Include.NON_EMPTY)
@@ -57,12 +59,12 @@ public class UserEntity extends BaseEntity {
   @Column(name = "email")
   private String email;
 
-  @Column(name="username")
+  @Column(name = "username")
   private String username;
-  
-  @Column(name="encrypted_password")
+
+  @Column(name = "encrypted_password")
   private String encryptedPassword;
-  
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "tenant_id")
   private TenantEntity tenant;
@@ -70,5 +72,5 @@ public class UserEntity extends BaseEntity {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "role_id")
   private RoleEntity role;
-  
+
 }

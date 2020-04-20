@@ -5,12 +5,15 @@ import java.util.List;
 /**
  * This interface to define all the abstractions that are required for an entity to search.
  * 
+ * @author Sandeep.Vishwakarma
+ *
  */
 public interface SearchableEntity {
-	
-    public List<String> getSearchFields();
 
-    public String getNodeName();
-    public String getMultiDataNodeName();
-    
+  public List<String> getSearchFields();
+
+  public String getNodeName();
+
+  public String getMultiDataNodeName();
+
 }

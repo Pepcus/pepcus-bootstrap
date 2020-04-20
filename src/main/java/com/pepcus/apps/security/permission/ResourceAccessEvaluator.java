@@ -8,12 +8,13 @@ import com.jcabi.aspects.Loggable;
 
 /**
  * interface to define different access level checks for various resources.
- *  
+ * @author Sandeep.Vishwakarma
+ *
  */
 public interface ResourceAccessEvaluator {
 
      /**
-      * To evaluate sku & permission validation for given resource
+      * To evaluate permission validation for given resource
       * 
      * @param authentication
      * @param resource

@@ -11,6 +11,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 
+/**
+ * Database entity object for 'tenant' database table
+ * 
+ * @author Sandeep.Vishwakarma
+ *
+ */
 @Entity
 @Table(name = "tenant")
 @Data
@@ -26,9 +32,9 @@ public class TenantEntity extends BaseEntity {
   @NotNull
   @Column(name = "name")
   private String name;
-  
+
   @NotNull
   @Column(name = "description")
   private String description;
-  
+
 }

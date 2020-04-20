@@ -1,29 +1,35 @@
 package com.pepcus.apps.validators;
 
+/**
+ * LimitedType class to hold limit related attributes for validation
+ * 
+ * @author Sandeep.Vishwakarma
+ *
+ */
 public class BetweenLimitedType extends ValidationType {
-	
-	private double lowerLimited;
 
-	private double upperLimited;
+  private double lowerLimited;
 
-	public BetweenLimitedType(int code) {
-		super(code);
-	}
+  private double upperLimited;
 
-	public double getLowerLimited() {
-		return lowerLimited;
-	}
+  public BetweenLimitedType(int code) {
+    super(code);
+  }
 
-	public void setLowerLimited(double lowerLimited) {
-		this.lowerLimited = lowerLimited;
-	}
+  public double getLowerLimited() {
+    return lowerLimited;
+  }
 
-	public double getUpperLimited() {
-		return upperLimited;
-	}
+  public void setLowerLimited(double lowerLimited) {
+    this.lowerLimited = lowerLimited;
+  }
 
-	public void setUpperLimited(double upperLimited) {
-		this.upperLimited = upperLimited;
-	}
+  public double getUpperLimited() {
+    return upperLimited;
+  }
+
+  public void setUpperLimited(double upperLimited) {
+    this.upperLimited = upperLimited;
+  }
 
 }

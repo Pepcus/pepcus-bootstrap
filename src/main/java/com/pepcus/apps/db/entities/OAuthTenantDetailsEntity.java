@@ -6,21 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Formula;
-import org.hibernate.validator.constraints.URL;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import lombok.Data;
 
 /**
+ * Database entity object for 'oauth_tenant_details' database table
  * 
- * Database entity object for OAuthClientDetails
- * 
- * Name of database table is auth_tenant_details
- * 
+ * @author Sandeep.Vishwakarma
  *
  */
 @Entity
@@ -28,42 +21,42 @@ import lombok.Data;
 @Data
 @JsonInclude(Include.NON_EMPTY)
 public class OAuthTenantDetailsEntity extends BaseEntity {
-    
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
-    
-    @Column(name = "tenant_id")
-    private Integer tenantId;
-    
-    @Column(name = "client_id")
-    private String clientId;
-    
-    @Column(name = "client_secret")
-    private String clientSecret;
-    
-    @Column(name = "scope")
-    private String scope;
-    
-    @Column(name = "authorized_grant_types")
-    private String authorizedGrantTypes;
-    
-    @Column(name = "redirect_uri")
-    private String redirectUri;
-    
-    @Column(name = "authorities")
-    private String authorities;
-    
-    @Column(name = "access_token_validity")
-    private Integer accessTokenValidity;
-    
-    @Column(name = "refresh_token_validity")
-    private String refreshTokenValidity;
-    
-    @Column(name = "additional_information")
-    private String additionalInformation;
-    
-    @Column(name = "autoapprove")
-    private String autoapprove;
-    
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+
+  @Column(name = "tenant_id")
+  private Integer tenantId;
+
+  @Column(name = "client_id")
+  private String clientId;
+
+  @Column(name = "client_secret")
+  private String clientSecret;
+
+  @Column(name = "scope")
+  private String scope;
+
+  @Column(name = "authorized_grant_types")
+  private String authorizedGrantTypes;
+
+  @Column(name = "redirect_uri")
+  private String redirectUri;
+
+  @Column(name = "authorities")
+  private String authorities;
+
+  @Column(name = "access_token_validity")
+  private Integer accessTokenValidity;
+
+  @Column(name = "refresh_token_validity")
+  private String refreshTokenValidity;
+
+  @Column(name = "additional_information")
+  private String additionalInformation;
+
+  @Column(name = "autoapprove")
+  private String autoapprove;
+
 }

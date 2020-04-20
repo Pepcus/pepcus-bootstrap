@@ -1,29 +1,35 @@
 package com.pepcus.apps.validators;
 
+/**
+ * ValueLimitedType class to hold valueLimit related attributes for validation
+ * 
+ * @author Sandeep.Vishwakarma
+ *
+ */
 class ValueLimitedType extends ValidationType {
 
-	private double valueLimited;
-	
-	private String reference;
-	
-	public ValueLimitedType(int code) {
-		super(code);
-	}
+  private double valueLimited;
 
-	public double getValueLimited() {
-		return valueLimited;
-	}
+  private String reference;
 
-	public void setValueLimited(double valueLimited) {
-		this.valueLimited = valueLimited;
-	}
+  public ValueLimitedType(int code) {
+    super(code);
+  }
 
-	public String getReference() {
-		return reference;
-	}
+  public double getValueLimited() {
+    return valueLimited;
+  }
 
-	public void setReference(String reference) {
-		this.reference = reference;
-	}
-	
+  public void setValueLimited(double valueLimited) {
+    this.valueLimited = valueLimited;
+  }
+
+  public String getReference() {
+    return reference;
+  }
+
+  public void setReference(String reference) {
+    this.reference = reference;
+  }
+
 }

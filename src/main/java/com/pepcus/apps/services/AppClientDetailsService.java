@@ -21,41 +21,40 @@ import com.pepcus.apps.db.repositories.OAuthClientDetailsRepository;
 /**
  * Class used to load "oauth_client_details" object from Database
  * 
+ * @author Sandeep.Vishwakarma
+ *
  */
 @Service
 public class AppClientDetailsService implements ClientDetailsService {
-    
-    @Value("${com.pepcus.oauth.security.access.token.validity.seconds}")
-    private Integer accessTokenValiditySeconds;
-    
-    @Value("${com.pepcus.oauth.security.refresh.token.validity.seconds}")
-    private Integer refreshTokenValiditySeconds;
-    
-    @Autowired
-    private OAuthClientDetailsRepository authClientDetailsRepository;
-    
-    @Override
-    public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
-        OAuthTenantDetailsEntity authDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId,true);
-        if (authDetails == null) {
-            throw new InvalidClientException("Bad Credentials");
-        }
-        
-        BaseClientDetails clientDetails = new BaseClientDetails();
-        clientDetails.setClientId(authDetails.getClientId());
-        clientDetails.setClientSecret(authDetails.getClientSecret());
-        clientDetails.setAccessTokenValiditySeconds(accessTokenValiditySeconds);
-        clientDetails.setRefreshTokenValiditySeconds(refreshTokenValiditySeconds);
-        clientDetails.setScope(Arrays.asList(SCOPE_ALL));
-        clientDetails.setAuthorizedGrantTypes(Arrays.asList(IMPLICIT_GRANT_TYPE, 
-                                                            RESOURCE_OWNER_GRANT_TYPE, 
-                                                            REFRESH_TOKEN_GRANT_TYPE,
-                                                            AUTHORIZATION_CODE_GRANT_TYPE,
-                                                            OPEN_ID_GRANT_TYPE));
-        if (authDetails.getRedirectUri() != null) {
-            clientDetails.setRegisteredRedirectUri(new HashSet<String>(Arrays.asList(authDetails.getRedirectUri())));
-        }
-        return clientDetails;
+
+  @Value("${com.pepcus.oauth.security.access.token.validity.seconds}")
+  private Integer accessTokenValiditySeconds;
+
+  @Value("${com.pepcus.oauth.security.refresh.token.validity.seconds}")
+  private Integer refreshTokenValiditySeconds;
+
+  @Autowired
+  private OAuthClientDetailsRepository authClientDetailsRepository;
+
+  @Override
+  public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
+    OAuthTenantDetailsEntity authDetails = authClientDetailsRepository.findByClientIdAndIsActive(clientId, true);
+    if (authDetails == null) {
+      throw new InvalidClientException("Bad Credentials");
     }
+
+    BaseClientDetails clientDetails = new BaseClientDetails();
+    clientDetails.setClientId(authDetails.getClientId());
+    clientDetails.setClientSecret(authDetails.getClientSecret());
+    clientDetails.setAccessTokenValiditySeconds(accessTokenValiditySeconds);
+    clientDetails.setRefreshTokenValiditySeconds(refreshTokenValiditySeconds);
+    clientDetails.setScope(Arrays.asList(SCOPE_ALL));
+    clientDetails.setAuthorizedGrantTypes(Arrays.asList(IMPLICIT_GRANT_TYPE, RESOURCE_OWNER_GRANT_TYPE,
+        REFRESH_TOKEN_GRANT_TYPE, AUTHORIZATION_CODE_GRANT_TYPE, OPEN_ID_GRANT_TYPE));
+    if (authDetails.getRedirectUri() != null) {
+      clientDetails.setRegisteredRedirectUri(new HashSet<String>(Arrays.asList(authDetails.getRedirectUri())));
+    }
+    return clientDetails;
+  }
 
 }

@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 import com.pepcus.apps.db.entities.PermissionEntity;
 
 /**
+ * Repository for "Permisson" entity.
+ * 
  * @author sandeep.vishwakarma
  *
  */

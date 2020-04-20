@@ -3,18 +3,14 @@ package com.pepcus.apps.security.oauth2.services;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.util.CollectionUtils;
-
 import com.pepcus.apps.constant.ApplicationConstants;
 import com.pepcus.apps.db.entities.OAuthTenantDetailsEntity;
 import com.pepcus.apps.db.entities.RoleEntity;
@@ -26,11 +22,10 @@ import com.pepcus.apps.exception.APIErrorCodes;
 import com.pepcus.apps.exception.ApplicationException;
 import com.pepcus.apps.model.AppAuthData;
 import com.pepcus.apps.utils.JWTUtil;
-
 import lombok.Data;
 
 /**
- * This class is to enhance JwtToken to handle application specific additional parameters 
+ * This class is to enhance JwtToken to handle application specific additional parameters
  * 
  * @author sandeep.vishwarkarma
  *
@@ -43,9 +38,6 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
     @Value("${JWT.jwt_iss}")
     private String issuer;
     
-    @Value("${app.default.tenant}")
-    private String tenantKey;
-
     @Autowired
     private UserRepository userRepository;
     
@@ -141,10 +133,11 @@ public class AppTokenEnhancer extends JwtAccessTokenConverter {
      */
     private RoleEntity validatePermissions(AppAuthData authData) {
     	RoleEntity roleEntity = roleRepository.findByNameAndTenantKey(authData.getRole(), authData.getTenantKey());
-        if (CollectionUtils.isEmpty(roleEntity.getPermissions())) {
+		//TODO: Add exception as per the requirement
+        /*if (CollectionUtils.isEmpty(roleEntity.getPermissions())) {
             throw ApplicationException.createAuthorizationError(APIErrorCodes.AUTHORIZATION_FAILED, 
             		"role = "+ authData.getRole() + " have not assigned any permission");
-        } 
+        }*/ 
 
         return roleEntity;
     }
