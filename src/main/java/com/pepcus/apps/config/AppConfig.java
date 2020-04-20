@@ -27,7 +27,6 @@ import com.pepcus.apps.security.permission.ResourceAccessEvaluatorFactory;
 import com.pepcus.apps.services.crypto.AESEncryptorDecryptor;
 import com.pepcus.apps.services.crypto.AppEncryptorDecryptor;
 import com.pepcus.apps.services.crypto.BCryptPasswordEncryptor;
-import com.pepcus.apps.services.crypto.BlowfishEncryptorDecryptor;
 
 /**
  * Class to load application configurations
@@ -110,11 +109,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
   @Bean
   @Lazy(value = true)
   public AppEncryptorDecryptor getEncryptor() {
-    if (ApplicationConstants.BLOWFISH_ALGO.equalsIgnoreCase(cryptoAlgo)) {
-      return new BlowfishEncryptorDecryptor(key, initVector);
-    } else if (ApplicationConstants.BCRYPT_ALGO.equalsIgnoreCase(cryptoAlgo)) {
+    if (ApplicationConstants.BCRYPT_ALGO.equalsIgnoreCase(cryptoAlgo)) {
       return new BCryptPasswordEncryptor();
-    }
+    } 
+    // Default encryptor ApplicationConstants.AES_ALGO
     return new AESEncryptorDecryptor(key, initVector);
 
   }

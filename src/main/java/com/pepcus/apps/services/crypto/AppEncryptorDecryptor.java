@@ -1,7 +1,7 @@
 package com.pepcus.apps.services.crypto;
 
 /**
- * Generic interface for password encryption.
+ * Generic interface for with comment method for encryption/decryption.
  * 
  * @author Sandeep.Vishwakarma
  *
